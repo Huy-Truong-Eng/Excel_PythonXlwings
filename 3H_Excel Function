@@ -1,0 +1,117 @@
+"""
+Created on Sat Sep 30 09:16:45 2023
+
+@author: Truong Nhut Huy, Thai Ha, Hoang Duc Anh
+"""
+
+
+import xlwings as xw
+import numpy as np
+import cmath
+
+"1D interpolate"
+"""INSTRUCTION: 
+    x_new_input can be a CELL of excel or an ARRAY of excel
+    The result is a cell or an array
+"""
+from scipy.interpolate import interp1d
+@xw.func
+@xw.arg('x_array', doc='This is x_array.')
+@xw.arg('y_array', doc='This is y_array.')
+@xw.arg('x_new_input', doc='This is x_new_input.')
+def 3H_interpolate_1D(x_array, y_array, x_new_input):
+    # Ensure inputs are numpy arrays
+    x = np.array(x_array)
+    y = np.array(y_array)
+    x_new = np.array(x_new_input)
+
+    # Create interpolation function
+    f = interp1d(x, y)
+
+    # Use the interpolation function
+    y_new = f(x_new)
+    return y_new.tolist()
+
+"2D interpolate"
+"""INSTRUCTION: 
+   x_new_input can be a CELL of excel or an ARRAY of excel
+   y_new_input can be a CELL of excel or an ARRAY of excel
+   The result is a cell or an array
+"""
+from scipy.interpolate import interp2d
+@xw.func
+def 3H_interpolate_2D(x_array, y_array, z_table, x_new_input, y_new_input):
+    # Ensure inputs are numpy arrays
+    x = np.array(x_array)
+    y = np.array(y_array)
+    z = np.array(z_table)
+    x_new = np.array(x_new_input)
+    y_new = np.array(y_new_input)
+
+    # Create interpolation function
+    f = interp2d(x, y, z)
+
+    # Use the interpolation function
+    z_new = f(x_new, y_new)
+    return z_new.tolist()
+
+"Quadratic ax^2 + bx + c = 0"
+"""INSTRUCTION: 
+   Input value of a,b,c to solve the quadratic
+"""
+
+@xw.func
+def 3_solve_quadratic_2(a, b, c):
+    # Calculate the discriminant
+    D = b**2 - 4*a*c
+
+    # Check if the discriminant is positive, negative or zero
+    if D > 0:
+        # Two real and distinct roots
+        x1 = (-b + np.sqrt(D)) / (2*a)
+        x2 = (-b - np.sqrt(D)) / (2*a)
+        return [x1, x2]
+    elif D == 0:
+        # Two real and equal roots
+        x = -b / (2*a)
+        return [x]
+    else:
+        # Roots are complex numbers
+        real_part = -b / (2*a)
+        imag_part = np.sqrt(-D) / (2*a)
+        return [[real_part, imag_part], [real_part, -imag_part]]
+
+
+"3rd degree equation ax^3 + bx^2 + cx + d = 0"
+"""INSTRUCTION: 
+   Input value of a,b,c,d to solve the quadratic
+"""
+
+@xw.func
+@xw.ret(expand='table')
+def 3H_solve_cubic(a, b, c, d):
+    # Calculate the roots of the cubic equation
+    coefficients = [a, b, c, d]
+    roots = np.roots(coefficients)
+
+    # Convert complex roots to real and imaginary parts
+    roots = [[root.real, root.imag] for root in roots]
+
+    return roots
+
+"4rd degree equation ax^4 + bx^3 + cx^2 + dx + e = 0"
+"""INSTRUCTION: 
+   Input value of a,b,c,d,e to solve the quadratic
+"""
+
+@xw.func
+@xw.ret(expand='table')
+def 3H_solve_quartic_4(a, b, c, d, e):
+    # Calculate the roots of the cubic equation
+    coefficients = [a, b, c, d, e]
+    roots = np.roots(coefficients)
+
+    # Convert complex roots to real and imaginary parts
+    roots = [[root.real, root.imag] for root in roots]
+
+    return roots
