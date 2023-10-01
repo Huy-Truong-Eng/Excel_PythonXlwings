@@ -19,7 +19,7 @@ from scipy.interpolate import interp1d
 @xw.arg('x_array', doc='This is x_array.')
 @xw.arg('y_array', doc='This is y_array.')
 @xw.arg('x_new_input', doc='This is x_new_input.')
-def 3H_interpolate_1D(x_array, y_array, x_new_input):
+def H_interpolate_1D(x_array, y_array, x_new_input):
     # Ensure inputs are numpy arrays
     x = np.array(x_array)
     y = np.array(y_array)
@@ -40,7 +40,7 @@ def 3H_interpolate_1D(x_array, y_array, x_new_input):
 """
 from scipy.interpolate import interp2d
 @xw.func
-def 3H_interpolate_2D(x_array, y_array, z_table, x_new_input, y_new_input):
+def H_interpolate_2D(x_array, y_array, z_table, x_new_input, y_new_input):
     # Ensure inputs are numpy arrays
     x = np.array(x_array)
     y = np.array(y_array)
@@ -61,7 +61,7 @@ def 3H_interpolate_2D(x_array, y_array, z_table, x_new_input, y_new_input):
 """
 
 @xw.func
-def 3H_solve_quadratic_2(a, b, c):
+def H_solve_quadratic_2(a, b, c):
     # Calculate the discriminant
     D = b**2 - 4*a*c
 
@@ -88,8 +88,7 @@ def 3H_solve_quadratic_2(a, b, c):
 """
 
 @xw.func
-@xw.ret(expand='table')
-def 3H_solve_cubic(a, b, c, d):
+def H_solve_cubic_3(a, b, c, d):
     # Calculate the roots of the cubic equation
     coefficients = [a, b, c, d]
     roots = np.roots(coefficients)
@@ -105,8 +104,7 @@ def 3H_solve_cubic(a, b, c, d):
 """
 
 @xw.func
-@xw.ret(expand='table')
-def 3H_solve_quartic_4(a, b, c, d, e):
+def H_solve_quartic_4(a, b, c, d, e):
     # Calculate the roots of the cubic equation
     coefficients = [a, b, c, d, e]
     roots = np.roots(coefficients)
