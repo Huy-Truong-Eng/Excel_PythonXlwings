@@ -61,7 +61,7 @@ def 3H_interpolate_2D(x_array, y_array, z_table, x_new_input, y_new_input):
 """
 
 @xw.func
-def 3_solve_quadratic_2(a, b, c):
+def 3H_solve_quadratic_2(a, b, c):
     # Calculate the discriminant
     D = b**2 - 4*a*c
 
